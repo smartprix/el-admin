@@ -2,7 +2,7 @@
   "name": "el-admin",
   "version": "0.1.0",
   "description": "Admin components using element (https://github.com/ElemeFE/element) tookit",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "repository": "smartprix/el-admin",
   "directories": {
     "test": "test"
