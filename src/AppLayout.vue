@@ -78,6 +78,7 @@ html {
 	overflow-y: scroll;
 	text-rendering: optimizeLegibility;
 	height: 100%;
+	overflow: hidden;
 }
 
 body, button, input, select, textarea {
@@ -98,6 +99,10 @@ code, pre {
 	-moz-osx-font-smoothing: auto;
 	-webkit-font-smoothing: auto;
 	font-family: "Inconsolata", "Consolas", "Monaco", monospace;
+}
+
+#app {
+	height: 100%;
 }
 
 .modal-ref {
