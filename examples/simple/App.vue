@@ -2,11 +2,11 @@
 	<ela-app-layout>
 		<div slot="header">
 			<div class="header-left">
-				<ela-menu-items :items="headerMenuItems" mode="horizontal"></menu-items>
+				<ela-menu-items :items="headerMenuItems" mode="horizontal"></ela-menu-items>
 			</div>
 			<div class="header-right">
 				<el-input icon="search" placeholder="Search" style="width: 300px;"></el-input>
-				<ela-menu-items :items="userMenuItems" mode="horizontal"></menu-items>
+				<ela-menu-items :items="userMenuItems" mode="horizontal"></ela-menu-items>
 			</div>
 		</div>
 
@@ -14,7 +14,7 @@
 			<div class="logo">
 				<img src="./logo.png" height="60" class="logo"/>
 			</div>
-			<ela-menu-items :items="sideMenuItems"></menu-items>
+			<ela-menu-items :items="sideMenuItems"></ela-menu-items>
 		</div>
 
 		<router-view></router-view>

@@ -43,7 +43,10 @@ export default {
 }
 
 .ela-content-layout-filters {
-	height: 60px;
+	margin-bottom: -18px;
+	padding: 14px 12px;
+	overflow: hidden;
+	background: aliceblue;
 }
 
 .ela-content-layout-content, .ela-content-layout-tabs {

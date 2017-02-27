@@ -12,7 +12,35 @@
 			</div>
 		</div>
 		<div slot="filters">
-
+			<el-row type="flex">
+				<ela-filter-item label="Price (Min - Max)" :span="4">
+					<el-row :gutter="4">
+						<el-col :span="12">
+							<el-input size="small"></el-input>
+						</el-col>
+						<el-col :span="12">
+							<el-input size="small"></el-input>
+						</el-col>
+					</el-row>
+				</ela-filter-item>
+				<ela-filter-item label="Store" :span="4">
+					<el-select size="small" placeholder="Store">
+						<el-option value="flipkart">Flipkart</el-option>
+						<el-option value="flipkart">Snapdeal</el-option>
+					</el-select>
+				</ela-filter-item>
+				<ela-filter-item label="Destination" :span="10">
+					<el-radio-group size="small">
+						<el-radio-button label="New York"></el-radio-button>
+						<el-radio-button label="Washington"></el-radio-button>
+						<el-radio-button label="Los Angeles"></el-radio-button>
+						<el-radio-button label="Chicago"></el-radio-button>
+					</el-radio-group>
+				</ela-filter-item>
+				<ela-filter-item label="Search" :span="6" float="right">
+					<el-input icon="search" size="small"></el-input>
+				</ela-filter-item>
+			</el-row>
 		</div>
 		<el-table :data="employees" row-key="id" stripe border>
 			<el-table-column prop="id" label="ID" width="60px"></el-table-column>
@@ -88,7 +116,7 @@
 				<el-pagination
 					:page-sizes="[100, 200, 300, 400]"
 					:page-size="100"
-					layout="total, prev, pager, next"
+					layout="prev, pager, next"
 					:total="1000">
 				</el-pagination>
 			</div>
