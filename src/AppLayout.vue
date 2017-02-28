@@ -60,7 +60,7 @@ export default {
 			rightModalData: {},
 		};
 	},
-	events: {
+	methods: {
 		openRightModal({component, props}) {
 			this.currentRightModal = component;
 			this.rightShown = true;
@@ -70,16 +70,25 @@ export default {
 		closeRightModal() {
 			this.rightShown = false;
 		},
+	}
+	events: {
+		openRightModal(opts) {
+			this.openRightModal(opts);
+		},
 
-		closeOpenRightModal({component, props}) {
+		closeRightModal() {
+			this.closeRightModal();
+		},
+
+		closeOpenRightModal(opts) {
 			if (this.rightShown) {
 				this.closeRightModal();
 				this.$nextTick(() => {
-					this.openRightModal();
+					this.openRightModal(opts);
 				});
 			}
 			else {
-				this.openRightModal();
+				this.openRightModal(opts);
 			}
 		}
 	},
