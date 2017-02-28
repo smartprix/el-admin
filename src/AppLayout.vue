@@ -70,7 +70,7 @@ export default {
 		closeRightModal() {
 			this.rightShown = false;
 		},
-	}
+	},
 	events: {
 		openRightModal(opts) {
 			this.openRightModal(opts);
@@ -90,7 +90,7 @@ export default {
 			else {
 				this.openRightModal(opts);
 			}
-		}
+		},
 	},
 };
 </script>
