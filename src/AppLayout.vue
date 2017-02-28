@@ -40,6 +40,13 @@ Vue.prototype.$closeRightModal = function () {
 	this.$bus.$emit('closeRightModal');
 };
 
+Vue.prototype.$closeOpenRightModal = function (component, props) {
+	this.$bus.$emit('closeOpenRightModal', {
+		component,
+		props,
+	});
+};
+
 export default {
 	name: 'ela-app-layout',
 	components: {
@@ -63,6 +70,18 @@ export default {
 		closeRightModal() {
 			this.rightShown = false;
 		},
+
+		closeOpenRightModal({component, props}) {
+			if (this.rightShown) {
+				this.closeRightModal();
+				this.$nextTick(() => {
+					this.openRightModal();
+				});
+			}
+			else {
+				this.openRightModal();
+			}
+		}
 	},
 };
 </script>
