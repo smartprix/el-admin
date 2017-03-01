@@ -19,7 +19,7 @@ export default {
 	padding: 16px 16px 0 16px;
 	border: #bfcbd9 1px solid;
 	margin: 15px 0 22px 0;
-	background: ghostwhite;
+	background: aliceblue;
 	position: relative;
 	border-radius: 5px;
 
@@ -38,6 +38,10 @@ export default {
 
 	.el-row:last-child > .el-col {
 		margin-bottom: -6px;
+	}
+
+	.el-form-item > .el-row:last-child > .el-col {
+		margin-bottom: 0;
 	}
 
 	> .el-form-item:last-child {
