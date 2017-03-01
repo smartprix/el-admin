@@ -4,6 +4,7 @@ import DefaultInput from './DefaultInput.vue';
 import MenuItems from './MenuItems.vue';
 import RightModal from './RightModal.vue';
 import FilterItem from './FilterItem.vue';
+import Fieldset from './Fieldset.vue';
 
 const ElAdmin = {
 	install(Vue) {
@@ -13,6 +14,7 @@ const ElAdmin = {
 		Vue.component(MenuItems.name, MenuItems);
 		Vue.component(RightModal.name, RightModal);
 		Vue.component(FilterItem.name, FilterItem);
+		Vue.component(Fieldset.name, Fieldset);
 	},
 };
 
