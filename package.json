@@ -1,6 +1,6 @@
 {
   "name": "el-admin",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Admin components using element (https://github.com/ElemeFE/element) tookit",
   "main": "src/index.js",
   "repository": "smartprix/el-admin",
