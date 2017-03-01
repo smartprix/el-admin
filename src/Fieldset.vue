@@ -9,7 +9,7 @@
 export default {
 	name: 'ela-fieldset',
 	props: {
-		legend: String,
+		legend: {},
 	},
 };
 </script>
