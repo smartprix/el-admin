@@ -12,7 +12,8 @@ export default {
 	name: 'ela-right-modal',
 	vModel: true,
 	props: {
-		hideOnClick: true,
+		hideOnClick: Boolean,
+		value: Boolean,
 	},
 };
 </script>
