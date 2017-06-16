@@ -11,12 +11,16 @@
 			</header>
 			<div class="ela-app-container">
 				<slot></slot>
-				<right-modal v-model="rightShown">
+				<right-modal
+					v-for="(modal, index) in rightModals"
+					:key="index"
+					:index="index"
+					v-model="modal.shown"
+					@change="(!modal.shown) && removeRightModal(index)">
 					<component
-						:is="currentRightModal"
-						v-bind="rightModalData"
-						@done="rightShown = false"
-						v-if="rightShown"
+						:is="modal.component"
+						v-bind="modal.data"
+						@done="modal.shown = false"
 					></component>
 				</right-modal>
 			</div>
@@ -55,20 +59,32 @@ export default {
 	},
 	data() {
 		return {
-			rightShown: false,
-			currentRightModal: 'employee-form',
-			rightModalData: {},
+			// right modals is an array of right modal
+			// each right modal is represented as an object
+			// {shown: boolean, component: string, data: object}
+			rightModals: [],
 		};
 	},
 	methods: {
 		openRightModal({component, props}) {
-			this.currentRightModal = component;
-			this.rightShown = true;
-			this.rightModalData = props || {};
+			this.rightModals.push({
+				shown: true,
+				component,
+				data: props || {},
+			});
 		},
 
 		closeRightModal() {
-			this.rightShown = false;
+			this.rightModals = [];
+		},
+
+		removeRightModal(index) {
+			if (this.rightModals.length === 1) {
+				this.rightModals = [];
+				return;
+			}
+
+			this.rightModals.splice(index, 1);
 		},
 	},
 	events: {
@@ -81,7 +97,7 @@ export default {
 		},
 
 		closeOpenRightModal(opts) {
-			if (this.rightShown) {
+			if (this.rightModals.length) {
 				this.closeRightModal();
 				this.$nextTick(() => {
 					this.openRightModal(opts);

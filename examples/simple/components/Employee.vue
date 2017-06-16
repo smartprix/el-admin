@@ -13,7 +13,7 @@
 		<div slot="head">
 			<h3>
 				<span v-if="isAdd">Add&nbsp;</span>Employee
-				<small>{{data.email}}</small>
+				<small @click="$view.employee(data)">{{data.email}}</small>
 			</h3>
 			<div class="header-right">
 				<el-button type="danger" icon="delete" @click="deleteEmployee(data)" v-if="!isAdd"></el-button>

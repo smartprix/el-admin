@@ -1,9 +1,16 @@
 <template>
 	<div class="ela-right-modal-wrapper" v-show="currentValue">
-		<div class="ela-right-modal">
+		<div class="ela-right-modal" :style="{
+			maxWidth: `${800 * (1 - (index * 0.016))}px`,
+			width: `${90 * (1 - (index * 0.016))}%`,
+			zIndex: `${(index + 1) * 99}`,
+		}">
 			<slot></slot>
 		</div>
-		<div class="ela-right-modal-overlay" @click="currentValue = false"></div>
+		<div class="ela-right-modal-overlay"
+			@click.stop="currentValue = false"
+			:style="{zIndex: `${(index + 1) * 98}`}">
+		</div>
 	</div>
 </template>
 
@@ -14,6 +21,10 @@ export default {
 	props: {
 		hideOnClick: Boolean,
 		value: Boolean,
+		index: {
+			type: Number,
+			default: 0,
+		},
 	},
 };
 </script>
@@ -33,12 +44,9 @@ export default {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	max-width: 800px;
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 90%;
-	z-index: 99;
 }
 
 .ela-right-modal-overlay {
@@ -48,6 +56,5 @@ export default {
 	position: absolute;
 	right: 0;
 	top: 0;
-	z-index: 98;
 }
 </style>
