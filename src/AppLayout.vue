@@ -40,8 +40,8 @@ Vue.prototype.$openRightModal = function (component, props) {
 	});
 };
 
-Vue.prototype.$closeRightModal = function () {
-	this.$bus.$emit('closeRightModal');
+Vue.prototype.$closeAllRightModals = function () {
+	this.$bus.$emit('closeRightModals');
 };
 
 Vue.prototype.$closeOpenRightModal = function (component, props) {
@@ -74,7 +74,7 @@ export default {
 			});
 		},
 
-		closeRightModal() {
+		closeAllRightModals() {
 			this.rightModals = [];
 		},
 
@@ -92,19 +92,13 @@ export default {
 			this.openRightModal(opts);
 		},
 
-		closeRightModal() {
-			this.closeRightModal();
+		closeAllRightModals() {
+			this.closeAllRightModals();
 		},
 
 		closeOpenRightModal(opts) {
 			if (this.rightModals.length) {
-				this.closeRightModal();
-				this.$nextTick(() => {
-					this.openRightModal(opts);
-				});
-			}
-			else {
-				this.openRightModal(opts);
+				this.removeRightModal(this.rightModals.length - 1);
 			}
 		},
 	},
