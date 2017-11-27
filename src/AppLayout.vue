@@ -172,9 +172,11 @@ code, pre {
 		background-color: transparent;
 	}
 
+	.el-menu--horizontal.el-menu .el-submenu__title,
 	.el-menu--horizontal.el-menu .el-submenu__title:hover,
 	.el-menu--horizontal.el-menu > .el-menu-item {
 		background-color: transparent;
+		color: lightgrey;
 	}
 
 	> *:only-child {
@@ -231,5 +233,17 @@ code, pre {
 	right: 0;
 	overflow-y: auto;
 	overflow-x: hidden;
+
+	.el-menu {
+		background-color: #324057;
+	}
+
+	.el-menu-item, .el-submenu__title {
+		color: lightgrey;
+	}
+
+	.el-menu-item:hover, .el-menu-item:focus, .el-submenu__title:hover {
+		color: black;
+	}
 }
 </style>
