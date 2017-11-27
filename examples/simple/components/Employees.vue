@@ -8,11 +8,12 @@
 		</div>
 		<el-table :data="employees" stripe border>
 			<el-table-column label="View" align="center" width="100">
-				<template scope="scope">
-					<el-button size="small" type="primary"
-						@click="$view.employee(scope.row)"
-					>Details</el-button>
-				</template>
+				<el-button
+					slot-scope="scope"
+					size="small"
+					type="primary"
+					@click="$view.employee(scope.row)">Details
+				</el-button>
 			</el-table-column>
 			<el-table-column prop="id" label="ID" width="60px"></el-table-column>
 			<el-table-column prop="name" label="Name"></el-table-column>
