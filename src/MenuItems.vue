@@ -7,10 +7,6 @@ export default {
 			type: String,
 			default: 'vertical',
 		},
-		theme: {
-			type: String,
-			default: 'dark',
-		},
 	},
 	render(h) {
 		let index = 1;
@@ -33,7 +29,7 @@ export default {
 		};
 
 		return (
-			<el-menu theme={this.theme} mode={this.mode} router>
+			<el-menu mode={this.mode} router>
 				{this.items.map(getSubMenu)}
 			</el-menu>
 		);
