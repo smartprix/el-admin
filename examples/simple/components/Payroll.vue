@@ -24,9 +24,9 @@
 					</el-row>
 				</ela-filter-item>
 				<ela-filter-item label="Store" :span="4">
-					<el-select size="small" placeholder="Store">
+					<el-select size="small" value="flipkart" placeholder="Store">
 						<el-option value="flipkart">Flipkart</el-option>
-						<el-option value="flipkart">Snapdeal</el-option>
+						<el-option value="snapdeal">Snapdeal</el-option>
 					</el-select>
 				</ela-filter-item>
 				<ela-filter-item label="Destination" :span="10">
@@ -45,49 +45,58 @@
 		<el-table :data="employees" row-key="id" stripe border>
 			<el-table-column prop="id" label="ID" width="60px"></el-table-column>
 			<el-table-column prop="name" label="Name" width="200px">
-				<template scope="scope">
-					<a class="modal-ref" @click="$view.employee(scope.row)">{{ scope.row.name }}</a>
-				</template>
+				<a
+					slot-scope="scope"
+					class="modal-ref"
+					@click="$view.employee(scope.row)">{{ scope.row.name }}
+				</a>
 			</el-table-column>
 			<el-table-column prop="payroll.lastCTCDate" label="Last CTC Date" width="120px"></el-table-column>
 			<el-table-column prop="leaves.plQuota" label="PL Quota"></el-table-column>
 			<el-table-column label="UPL">
-				<template scope="scope">
+				<template slot-scope="scope">
 					{{ calcUnpaidLeaves(scope.row) }}
 				</template>
 			</el-table-column>
 			<el-table-column prop="pan" label="PL">
-				<template scope="scope">
-					<ela-default-input
-						class="in-whole-cell"
-						:default="calcPl(scope.row)"
-						name="pl"
-						v-model="scope.row.payrollMonthly.pl">
-					</ela-default-input>
-				</template>
+				<ela-default-input
+					slot-scope="scope"
+					class="in-whole-cell"
+					:default="calcPl(scope.row)"
+					name="pl"
+					v-model="scope.row.payrollMonthly.pl">
+				</ela-default-input>
 			</el-table-column>
 			<el-table-column prop="pan" label="Total Leaves">
-				<template scope="scope">
-					<el-input class="in-whole-cell" v-model="scope.row.payrollMonthly.totalLeaves"></el-input>
-				</template>
+				<el-input
+					slot-scope="scope"
+					class="in-whole-cell"
+					v-model="scope.row.payrollMonthly.totalLeaves">
+				</el-input>
 			</el-table-column>
 			<el-table-column prop="pan" label="Performance Rating">
-				<template scope="scope">
-					<el-input :value="3" class="in-whole-cell" v-model="scope.row.payrollMonthly.performaceRating"></el-input>
-				</template>
+				<el-input
+				 	slot-scope="scope"
+					:value="3"
+					class="in-whole-cell" v-model="scope.row.payrollMonthly.performaceRating">
+				</el-input>
 			</el-table-column>
 			<el-table-column prop="pan" label="Bonus Deduction">
-				<template scope="scope">
-					<el-input class="in-whole-cell" v-model="scope.row.payrollMonthly.bonusDeduction"></el-input>
-				</template>
+				<el-input
+					slot-scope="scope"
+					class="in-whole-cell"
+					v-model="scope.row.payrollMonthly.bonusDeduction">
+				</el-input>
 			</el-table-column>
 			<el-table-column prop="pan" label="Adjustments">
-				<template scope="scope">
-					<el-input class="in-whole-cell" v-model="scope.row.payrollMonthly.adjustments"></el-input>
-				</template>
+				<el-input
+					slot-scope="scope"
+					class="in-whole-cell"
+					v-model="scope.row.payrollMonthly.adjustments">
+				</el-input>
 			</el-table-column>
 			<el-table-column label="Leave Deduction">
-				<template scope="scope">
+				<template slot-scope="scope">
 					{{ calcLeaveDeduction(scope.row) | round }}
 				</template>
 			</el-table-column>
@@ -95,19 +104,18 @@
 			<el-table-column prop="payroll.netSalary" label="Net Salary"></el-table-column>
 			<el-table-column prop="pan" label="Retention Bonus"></el-table-column>
 			<el-table-column label="To Be Paid">
-				<template scope="scope">
+				<template slot-scope="scope">
 					{{ calcToBePaid(scope.row) | round }}
 				</template>
 			</el-table-column>
 			<el-table-column prop="pan" label="Paid">
-				<template scope="scope">
-					<ela-default-input
-						:default="calcToBePaid(scope.row) | round"
-						class="in-whole-cell"
-						name="paid"
-						v-model="scope.row.payrollMonthly.paid">
-					</ela-default-input>
-				</template>
+				<ela-default-input
+					slot-scope="scope"
+					:default="calcToBePaid(scope.row) | round"
+					class="in-whole-cell"
+					name="paid"
+					v-model="scope.row.payrollMonthly.paid">
+				</ela-default-input>
 			</el-table-column>
 			<el-table-column prop="pan" label="Comment"></el-table-column>
 		</el-table>
