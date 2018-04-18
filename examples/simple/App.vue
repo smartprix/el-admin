@@ -1,5 +1,5 @@
 <template>
-	<ela-app-layout>
+	<ela-app-layout :componentMap="componentMap">
 		<div slot="header">
 			<div class="header-left">
 				<ela-menu-items :items="headerMenuItems" mode="horizontal"></ela-menu-items>
@@ -22,10 +22,13 @@
 </template>
 
 <script>
+import {componentMap} from './modalViews';
+
 export default {
 	name: 'app',
 	data() {
 		return {
+			componentMap,
 			sideMenuItems: [
 				{
 					text: 'Employees',
