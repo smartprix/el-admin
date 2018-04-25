@@ -78,6 +78,9 @@ export default {
 
 	methods: {
 		openRightModal({component, props}) {
+			if (typeof component === 'string') {
+				component = this.componentMap[component];
+			}
 			this.rightModals.push({
 				shown: true,
 				component,
@@ -95,68 +98,91 @@ export default {
 				return;
 			}
 
-			const rightModals = this.rightModals.slice();
-			rightModals.splice(index, 1);
+			const modals = this.getRouteModals();
+			modals.splice(index, 1);
+			const modalIds = this.getRouteModalIds();
+			modalIds.splice(index, 1);
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
-					modals: JSON.stringify(
-						rightModals.map(modal => modal.component.name)
-					),
-					modalData: JSON.stringify(
-						rightModals.map(modal => modal.data)
-					),
+					modals: modals.join(','),
+					modalIds: modalIds.join(','),
 				}),
 			});
+
+			this.rightModals.splice(index, 1);
 		},
 
 		setModalsFromRoutes(route) {
 			this.closeRightModal();
-			const modals = JSON.parse(this.$route.query.modals || '[]');
-			const dataArr = JSON.parse(this.$route.query.modalData || '[]');
+			const modals = this.getRouteModals();
+			const modalIds = this.getRouteModalIds();
 			modals.forEach((modal, index) => {
-				const data = dataArr[index] || {};
+				const id = modalIds[index];
+				const props = {fetch: true};
+				if (id) props.data = {id};
 				this.openRightModal({
 					component: this.componentMap[modal],
-					props: data,
+					props,
 				});
 			});
-		}
+		},
+
+		getRouteModals() {
+			const modals = this.$route.query.modals;
+			if (!modals) return [];
+			return modals.split(',');
+		},
+
+		getRouteModalIds() {
+			const modalIds = this.$route.query.modalIds;
+			if (!modalIds) return [];
+			return modalIds.split(',');
+		},
 	},
 
 	events: {
 		openRightModal({component, props}) {
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
-					modals: JSON.stringify(
-						this.rightModals.map(modal => modal.component.name).concat(component.name)
-					),
-					modalData: JSON.stringify(
-						this.rightModals.map(modal => modal.data).concat(props)
-					),
+					modals: this.getRouteModals().concat(component.name).join(','),
+					modalIds: this.getRouteModalIds().concat(
+						(props && props.data && props.data.id) || ''
+					).join(','),
 				}),
 			});
+			this.openRightModal({component, props});
 		},
 
 		closeRightModal() {
 			const query = Object.assign({}, this.$route.query);
 			delete query.modals;
-			delete query.modalData;
+			delete query.modalIds;
 			this.$router.push({query});
+			this.closeRightModal();
 		},
 
 		closeOpenRightModal({component, props}) {
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
-					modals: JSON.stringify([component.name]),
-					modalData: JSON.stringify([props]),
+					modals: component.name,
+					modalData: (props && props.data && props.data.id) || '',
 				}),
 			});
+			if (this.rightModals.length) {
+				this.closeRightModal();
+				this.$nextTick(() => {
+					this.openRightModal(opts);
+				});
+			}
+			else {
+				this.openRightModal(opts);
+			}
 		},
 	},
 
 	watch: {
 		$route(to) {
-			this.setModalsFromRoutes(to);
+			if (!to.query.modals) this.closeRightModal();
 		},
 	},
 };

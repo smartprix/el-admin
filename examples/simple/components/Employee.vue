@@ -13,7 +13,9 @@
 		<div slot="head">
 			<h3>
 				<span v-if="isAdd">Add&nbsp;</span>Employee
-				<small @click="$view.employee(data)">{{data && data.email}}</small>
+				<small>
+					<modal-link to="employee" :data="{data}">{{data && data.email}}</modal-link>
+				</small>
 			</h3>
 			<div class="header-right">
 				<el-button type="danger" icon="delete" @click="deleteEmployee(data)" v-if="!isAdd"></el-button>
