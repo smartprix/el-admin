@@ -55,6 +55,12 @@ export default {
 			inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
 				uploadUrl: this.getUploadUrl,
 				uploadFieldName: this.uploadFieldName,
+				onFileUploadResponse: (res) => {
+					if (this.fileUploadHandler) {
+						this.fileUploadHandler(res);
+						return;
+					}
+				},
 			});
 
 			simplemde.codemirror.on('change', () => {
