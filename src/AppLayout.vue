@@ -118,8 +118,7 @@ export default {
 			const modalIds = this.getRouteModalIds();
 			modals.forEach((modal, index) => {
 				const id = modalIds[index];
-				const props = {fetch: true};
-				if (id) props.data = {id};
+				const props = id ? {fetch: true, data: {id}} : {};
 				this.openRightModal({
 					component: this.componentMap[modal],
 					props,
