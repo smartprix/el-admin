@@ -18,23 +18,25 @@
   },
   "author": "Hitesh Khandelwal <hitesh@smartprix.com> (http://www.smartprix.com/)",
   "license": "ISC",
+  "dependencies": {
+    "inline-attachment": "^2.0.3",
+    "simplemde": "^1.11.2"
+  },
   "peerDependencies": {
     "vue": ">= 2.0.0",
     "vutils": ">= 0.6.0"
   },
   "devDependencies": {
-    "chai": "4.1.2",
-    "element-ui": "^2.2.0",
-    "eslint": "4.18.1",
-    "eslint-config-smartprix": "^3.4.1",
-    "inline-attachment": "^2.0.3",
-    "mocha": "5.0.1",
-    "simplemde": "^1.11.2",
-    "sm-webpack-config": "^0.17.6",
-    "vue": "^2.5.10",
+    "chai": "^4.1.2",
+    "element-ui": "^2.3.7",
+    "eslint": "^4.19.1",
+    "eslint-config-smartprix": "^3.4.2",
+    "mocha": "^5.1.1",
+    "sm-webpack-config": "^0.18.2",
+    "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vutils": "^0.14.6"
+    "vutils": "^0.14.7"
   },
   "eslintConfig": {
     "extends": "smartprix",
