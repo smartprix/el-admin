@@ -53,10 +53,12 @@ Vue.prototype.$closeOpenRightModal = function (component, props) {
 
 export default {
 	name: 'ela-app-layout',
+
 	components: {
 		MenuItems,
 		RightModal,
 	},
+
 	data() {
 		return {
 			// right modals is an array of right modal
@@ -65,8 +67,20 @@ export default {
 			rightModals: [],
 		};
 	},
+
+	props: {
+		componentMap: Object,
+	},
+
+	created() {
+		this.setModalsFromRoutes(this.$route);
+	},
+
 	methods: {
 		openRightModal({component, props}) {
+			if (typeof component === 'string') {
+				component = this.componentMap[component];
+			}
 			this.rightModals.push({
 				shown: true,
 				component,
@@ -80,23 +94,79 @@ export default {
 
 		removeRightModal(index) {
 			if (this.rightModals.length === 1) {
-				this.rightModals = [];
+				Vue.bus.$emit('closeRightModal');
 				return;
 			}
 
+			const modals = this.getRouteModals();
+			modals.splice(index, 1);
+			const modalIds = this.getRouteModalIds();
+			modalIds.splice(index, 1);
+			this.$router.push({
+				query: Object.assign({}, this.$route.query, {
+					modals: modals.join(','),
+					modalIds: modalIds.join(','),
+				}),
+			});
+
 			this.rightModals.splice(index, 1);
 		},
+
+		setModalsFromRoutes(route) {
+			this.closeRightModal();
+			const modals = this.getRouteModals();
+			const modalIds = this.getRouteModalIds();
+			modals.forEach((modal, index) => {
+				const id = modalIds[index];
+				const props = id ? {fetch: true, data: {id}} : {};
+				this.openRightModal({
+					component: this.componentMap[modal],
+					props,
+				});
+			});
+		},
+
+		getRouteModals() {
+			const modals = this.$route.query.modals;
+			if (!modals) return [];
+			return modals.split(',');
+		},
+
+		getRouteModalIds() {
+			const modalIds = this.$route.query.modalIds;
+			if (!modalIds) return [];
+			return modalIds.split(',');
+		},
 	},
+
 	events: {
-		openRightModal(opts) {
-			this.openRightModal(opts);
+		openRightModal({component, props}) {
+			this.$router.push({
+				query: Object.assign({}, this.$route.query, {
+					modals: this.getRouteModals().concat(component.name).join(','),
+					modalIds: this.getRouteModalIds().concat(
+						(props && props.data && props.data.id) || ''
+					).join(','),
+				}),
+			});
+			this.openRightModal({component, props});
 		},
 
 		closeRightModal() {
+			const query = Object.assign({}, this.$route.query);
+			delete query.modals;
+			delete query.modalIds;
+			this.$router.push({query});
 			this.closeRightModal();
 		},
 
-		closeOpenRightModal(opts) {
+		closeOpenRightModal({component, props}) {
+			this.$router.push({
+				query: Object.assign({}, this.$route.query, {
+					modals: component.name,
+					modalData: (props && props.data && props.data.id) || '',
+				}),
+			});
 			if (this.rightModals.length) {
 				this.closeRightModal();
 				this.$nextTick(() => {
@@ -106,6 +176,12 @@ export default {
 			else {
 				this.openRightModal(opts);
 			}
+		},
+	},
+
+	watch: {
+		$route(to) {
+			if (!to.query.modals) this.closeRightModal();
 		},
 	},
 };

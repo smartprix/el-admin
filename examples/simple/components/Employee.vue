@@ -5,7 +5,7 @@
 				<employee-form :data="data" @done="$emit('done')"></employee-form>
 			</el-tab-pane>
 			<el-tab-pane label="Payroll">
-				<payroll-form :data="data"></payroll-form>
+				<payroll-form :data="data || {}"></payroll-form>
 			</el-tab-pane>
 			<el-tab-pane label="Salaries" v-if="!isAdd">
 			</el-tab-pane>
@@ -13,7 +13,9 @@
 		<div slot="head">
 			<h3>
 				<span v-if="isAdd">Add&nbsp;</span>Employee
-				<small @click="$view.employee(data)">{{data.email}}</small>
+				<small>
+					<modal-link to="employee" :data="{data}">{{data && data.email}}</modal-link>
+				</small>
 			</h3>
 			<div class="header-right">
 				<el-button type="danger" icon="delete" @click="deleteEmployee(data)" v-if="!isAdd"></el-button>
@@ -38,7 +40,7 @@ export default {
 	},
 	computed: {
 		isAdd() {
-			return !this.data.id;
+			return !(this.data && this.data.id);
 		},
 	},
 	methods: {

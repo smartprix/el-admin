@@ -7,6 +7,12 @@
 				</el-select>
 			</el-col>
 		</el-form-item>
+		<el-form-item label="Description" prop="description">
+			<markdown-editor
+				v-model="test"
+				:file-upload-handler="uploadFile">
+			</markdown-editor>
+		</el-form-item>
 		<el-form-item>
 			<el-button type="primary" @click="savePayroll(payroll)">Save</el-button>
 			<el-button type="text" @click="onCancel">Cancel</el-button>
@@ -15,8 +21,13 @@
 </template>
 
 <script>
+import MarkdownEditor from '../../../src/Markdown.vue';
+
 export default {
 	name: 'employee-form',
+	components: {
+		MarkdownEditor,
+	},
 	reEvents: {save: 'done'},
 	vModel: 'currentValue',
 	props: {
@@ -28,6 +39,7 @@ export default {
 	},
 	data() {
 		return {
+			test: '',
 			doj: '2017-01-04',
 			gender: 'male',
 		};
@@ -44,6 +56,10 @@ export default {
 
 		onCancel() {
 			this.$emit('done');
+		},
+
+		uploadFile(res) {
+			console.log(res);
 		},
 	},
 };
