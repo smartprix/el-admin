@@ -2,5 +2,10 @@ node_modules
 coverage
 .vscode
 .idea
+.editorconfig
+.gitignore
+.git
 examples
 build.js
+package-lock.json
+yarn.lock
