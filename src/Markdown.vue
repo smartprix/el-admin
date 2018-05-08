@@ -10,7 +10,7 @@ import 'inline-attachment/src/inline-attachment';
 import 'inline-attachment/src/codemirror-4.inline-attachment';
 
 export default {
-	name: 'Markdown-Editor',
+	name: 'markdown-editor',
 
 	vModel: true,
 
@@ -24,6 +24,7 @@ export default {
 			type: String,
 			default: 'image',
 		},
+		value: {},
 		uploadUrl: String,
 		fileUploadHandler: Function,
 	},
