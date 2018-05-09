@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .ela-filter-item {
 	&.el-col {
 		padding-left: 5px;

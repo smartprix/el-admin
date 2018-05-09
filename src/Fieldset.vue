@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .ela-fieldset {
 	padding: 16px 16px 0 16px;
 	border: #bfcbd9 1px solid;

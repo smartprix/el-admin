@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .ela-content-layout {
 	display: flex;
 	flex-direction: column;
