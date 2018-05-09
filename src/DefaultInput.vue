@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 .el-input.is-default .el-input__inner {
 	background-color: #EFF2F7;
 	border-color: #D3DCE6;

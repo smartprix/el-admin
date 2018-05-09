@@ -187,7 +187,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 html {
 	background-color: white;
 	font-size: 14px;
