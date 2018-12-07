@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="postcss">
 .ela-content-layout {
 	display: flex;
 	flex-direction: column;
@@ -164,6 +164,13 @@ export default {
 
 	.header-right, .footer-right {
 		margin-left: auto;
+	}
+}
+
+.el-tabs__content {
+	.ela-content-layout-content .el-table__header-wrapper,
+	.ela-content-layout-tabs .el-table__header-wrapper {
+		top: -21px;
 	}
 }
 </style>
