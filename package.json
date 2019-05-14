@@ -29,10 +29,10 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "element-ui": "^2.3.7",
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "eslint-config-smartprix": "^3.4.2",
-    "mocha": "^5.1.1",
-    "sm-webpack-config": "^0.18.2",
+    "mocha": "^6.1.4",
+    "sm-webpack-config": "^1.2.3",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
