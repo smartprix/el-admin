@@ -51,10 +51,15 @@ export default {
 
 .ela-content-layout-content, .ela-content-layout-tabs {
 	.el-table {
+		position: relative;
 		overflow: visible;
-		width: none;
-		max-width: none;
-		display: table;
+		width: max-content !important;
+		max-width: unset;
+		min-width: 100%;
+	}
+
+	.el-table--border::after {
+		content: none;
 	}
 
 	.el-table__header-wrapper {
@@ -71,10 +76,6 @@ export default {
 	> * {
 		position: sticky;
 		left: 0;
-	}
-
-	.el-table {
-		position: relative;
 	}
 }
 
