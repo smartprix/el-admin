@@ -1,22 +1,25 @@
 <template>
-	<div class="ela-right-modal-wrapper" v-show="currentValue">
-		<div class="ela-right-modal" :style="{
-			maxWidth: `${800 * (1 - (index * 0.016))}px`,
-			width: `${90 * (1 - (index * 0.016))}%`,
-			zIndex: `${(index + 1) * 99}`,
-		}">
+	<div v-show="currentValue" class="ela-right-modal-wrapper">
+		<div
+			:style="{
+				maxWidth: `${800 * (1 - (index * 0.016))}px`,
+				width: `${90 * (1 - (index * 0.016))}%`,
+				zIndex: `${(index + 1) * 99}`,
+			}"
+			class="ela-right-modal">
 			<slot></slot>
 		</div>
-		<div class="ela-right-modal-overlay"
-			@click.stop="currentValue = false"
-			:style="{zIndex: `${(index + 1) * 98}`}">
+		<div
+			:style="{zIndex: `${(index + 1) * 98}`}"
+			class="ela-right-modal-overlay"
+			@click.stop="currentValue = false">
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'ela-right-modal',
+	name: 'ElaRightModal',
 	vModel: true,
 	props: {
 		hideOnClick: Boolean,

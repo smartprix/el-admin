@@ -52,11 +52,15 @@ Vue.prototype.$closeOpenRightModal = function (component, props) {
 };
 
 export default {
-	name: 'ela-app-layout',
+	name: 'ElaAppLayout',
 
 	components: {
 		MenuItems,
 		RightModal,
+	},
+
+	props: {
+		componentMap: Object,
 	},
 
 	data() {
@@ -68,8 +72,10 @@ export default {
 		};
 	},
 
-	props: {
-		componentMap: Object,
+	watch: {
+		$route(to) {
+			if (!to.query.modals) this.closeRightModal();
+		},
 	},
 
 	created() {
@@ -112,7 +118,7 @@ export default {
 			this.rightModals.splice(index, 1);
 		},
 
-		setModalsFromRoutes(route) {
+		setModalsFromRoutes() {
 			this.closeRightModal();
 			const modals = this.getRouteModals();
 			const modalIds = this.getRouteModalIds();
@@ -170,24 +176,18 @@ export default {
 			if (this.rightModals.length) {
 				this.closeRightModal();
 				this.$nextTick(() => {
-					this.openRightModal(opts);
+					this.openRightModal({component, props});
 				});
 			}
 			else {
-				this.openRightModal(opts);
+				this.openRightModal({component, props});
 			}
-		},
-	},
-
-	watch: {
-		$route(to) {
-			if (!to.query.modals) this.closeRightModal();
 		},
 	},
 };
 </script>
 
-<style>
+<style lang="postcss">
 html {
 	background-color: white;
 	font-size: 14px;
@@ -202,7 +202,11 @@ html {
 }
 
 body, button, input, select, textarea {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont,
+		"Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans",
+		"Droid Sans", "Helvetica Neue",
+		"Helvetica", "Arial", sans-serif;
 }
 
 body {

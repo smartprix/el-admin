@@ -1,6 +1,6 @@
 <template>
 	<el-input
-		class="ela-default-input"
+		ref="elInput"
 		:class="{'is-default': isDefault}"
 		:type="type"
 		:placeholder="placeholder"
@@ -10,14 +10,14 @@
 		:name="name"
 		:form="form"
 		:readonly="isDefault || readonly"
-		ref="elInput"
-		v-model="currentValue">
+		v-model="currentValue"
+		class="ela-default-input">
 		<template slot="append">
 			<el-checkbox
 				:disabled="disabled || readonly"
 				v-model="isDefault"
 			>
-			<span>Default</span>
+				<span>Default</span>
 			</el-checkbox>
 		</template>
 	</el-input>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-	name: 'ela-default-input',
+	name: 'ElaDefaultInput',
 	vModel: true,
 	props: {
 		type: String,
@@ -43,31 +43,6 @@ export default {
 			isDefault: false,
 		};
 	},
-	created() {
-		this.checkDefault();
-	},
-	methods: {
-		checkDefault() {
-			if (this.default === undefined) {
-				this.isDefault = false;
-			}
-			else if (this.currentValue === undefined ||
-				this.currentValue === null ||
-				this.currentValue === '') {
-				this.isDefault = true;
-			}
-			else if (this.currentValue === this.default) {
-				this.isDefault = true;
-			}
-			else {
-				this.isDefault = false;
-			}
-
-			if (this.isDefault) {
-				this.currentValue = this.default;
-			}
-		},
-	},
 	watch: {
 		default(val) {
 			if (this.isDefault) {
@@ -83,10 +58,36 @@ export default {
 			}
 		},
 	},
+	created() {
+		this.checkDefault();
+	},
+	methods: {
+		checkDefault() {
+			if (this.default === undefined) {
+				this.isDefault = false;
+			}
+			else if (this.currentValue === undefined ||
+				this.currentValue === null ||
+				this.currentValue === ''
+			) {
+				this.isDefault = true;
+			}
+			else if (this.currentValue === this.default) {
+				this.isDefault = true;
+			}
+			else {
+				this.isDefault = false;
+			}
+
+			if (this.isDefault) {
+				this.currentValue = this.default;
+			}
+		},
+	},
 };
 </script>
 
-<style>
+<style lang="postcss">
 .el-input.is-default .el-input__inner {
 	background-color: #EFF2F7;
 	border-color: #D3DCE6;

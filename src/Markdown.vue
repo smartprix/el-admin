@@ -1,5 +1,5 @@
 <template>
-  <textarea></textarea>
+	<textarea></textarea>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ import 'inline-attachment/src/inline-attachment';
 import 'inline-attachment/src/codemirror-4.inline-attachment';
 
 export default {
-	name: 'Markdown-Editor',
+	name: 'MarkdownEditor',
 
 	vModel: true,
 
@@ -18,7 +18,7 @@ export default {
 		simpleMdeConfig: Object,
 		path: {
 			type: String,
-			default: 'a'
+			default: 'a',
 		},
 		uploadFieldName: {
 			type: String,
@@ -52,13 +52,14 @@ export default {
 
 			const simplemde = new SimpleMDE(mdeConfig);
 
+			// inline-attachment is added to window
+			// eslint-disable-next-line no-undef
 			inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
 				uploadUrl: this.getUploadUrl,
 				uploadFieldName: this.uploadFieldName,
 				onFileUploadResponse: (res) => {
 					if (this.fileUploadHandler) {
 						this.fileUploadHandler(res);
-						return;
 					}
 				},
 			});
@@ -67,6 +68,6 @@ export default {
 				this.$emit('input', simplemde.value());
 			});
 		},
-	}
+	},
 };
 </script>
