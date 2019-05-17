@@ -65,13 +65,26 @@ export default {
 	},
 
 	methods: {
-		openRightModal({component, props}) {
+		/**
+		 * @param {string | Vue} component If this is string it will try
+		 * to get component from componentMap
+		 * @returns {Vue}
+		 */
+		resolveComponent(component) {
 			if (typeof component === 'string') {
-				component = this.componentMap[component];
+				return this.componentMap[component];
 			}
+
+			return component;
+		},
+
+		/**
+		 * @param {{component: string | Vue, props?: any}} param0
+		 */
+		openRightModal({component, props}) {
 			this.rightModals.push({
 				shown: true,
-				component,
+				component: this.resolveComponent(component),
 				data: props || {},
 			});
 		},
@@ -108,7 +121,7 @@ export default {
 				const id = modalIds[index];
 				const props = id ? {fetch: true, data: {id}} : {};
 				this.openRightModal({
-					component: this.componentMap[modal],
+					component: modal,
 					props,
 				});
 			});
@@ -129,6 +142,7 @@ export default {
 
 	events: {
 		openRightModal({component, props}) {
+			component = this.resolveComponent(component);
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
 					modals: this.getRouteModals().concat(component.name).join(','),
@@ -149,6 +163,7 @@ export default {
 		},
 
 		closeOpenRightModal({component, props}) {
+			component = this.resolveComponent(component);
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
 					modals: component.name,
