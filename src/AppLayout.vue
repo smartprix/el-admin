@@ -33,24 +33,6 @@ import Vue from 'vue';
 import MenuItems from './MenuItems.vue';
 import RightModal from './RightModal.vue';
 
-Vue.prototype.$openRightModal = function (component, props) {
-	this.$bus.$emit('openRightModal', {
-		component,
-		props,
-	});
-};
-
-Vue.prototype.$closeRightModal = function () {
-	this.$bus.$emit('closeRightModal');
-};
-
-Vue.prototype.$closeOpenRightModal = function (component, props) {
-	this.$bus.$emit('closeOpenRightModal', {
-		component,
-		props,
-	});
-};
-
 export default {
 	name: 'ElaAppLayout',
 
