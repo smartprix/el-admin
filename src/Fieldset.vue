@@ -1,20 +1,20 @@
 <template>
 	<div class="ela-fieldset">
-		<div class="ela-fieldset-legend" v-if="legend" v-text="legend"></div>
+		<div v-if="legend" class="ela-fieldset-legend" v-text="legend"></div>
 		<slot></slot>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'ela-fieldset',
+	name: 'ElaFieldset',
 	props: {
 		legend: {},
 	},
 };
 </script>
 
-<style>
+<style lang="postcss">
 .ela-fieldset {
 	padding: 16px 16px 0 16px;
 	border: #bfcbd9 1px solid;

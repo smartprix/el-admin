@@ -1,7 +1,11 @@
 <template>
-	<el-col :span="span" class="ela-filter-item" :class="{'ela-filter-item-right': float === 'right'}">
+	<el-col
+		:span="span"
+		:class="{'ela-filter-item-right': float === 'right'}"
+		class="ela-filter-item"
+	>
 		<div class="el-form-item el-form--label-top">
-			<label class="el-form-item__label" v-if="label">{{ label }}&nbsp;</label>
+			<label v-if="label" class="el-form-item__label">{{ label }}&nbsp;</label>
 			<div class="el-form-item__content">
 				<slot></slot>
 			</div>
@@ -11,7 +15,7 @@
 
 <script>
 export default {
-	name: 'ela-filter-item',
+	name: 'ElaFilterItem',
 	props: {
 		label: String,
 		span: {
@@ -26,7 +30,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="postcss">
 .ela-filter-item {
 	&.el-col {
 		padding-left: 5px;

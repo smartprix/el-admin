@@ -33,30 +33,16 @@ import Vue from 'vue';
 import MenuItems from './MenuItems.vue';
 import RightModal from './RightModal.vue';
 
-Vue.prototype.$openRightModal = function (component, props) {
-	this.$bus.$emit('openRightModal', {
-		component,
-		props,
-	});
-};
-
-Vue.prototype.$closeRightModal = function () {
-	this.$bus.$emit('closeRightModal');
-};
-
-Vue.prototype.$closeOpenRightModal = function (component, props) {
-	this.$bus.$emit('closeOpenRightModal', {
-		component,
-		props,
-	});
-};
-
 export default {
-	name: 'ela-app-layout',
+	name: 'ElaAppLayout',
 
 	components: {
 		MenuItems,
 		RightModal,
+	},
+
+	props: {
+		componentMap: Object,
 	},
 
 	data() {
@@ -68,8 +54,10 @@ export default {
 		};
 	},
 
-	props: {
-		componentMap: Object,
+	watch: {
+		$route(to) {
+			if (!to.query.modals) this.closeRightModal();
+		},
 	},
 
 	created() {
@@ -77,13 +65,26 @@ export default {
 	},
 
 	methods: {
-		openRightModal({component, props}) {
+		/**
+		 * @param {string | Vue} component If this is string it will try
+		 * to get component from componentMap
+		 * @returns {Vue}
+		 */
+		resolveComponent(component) {
 			if (typeof component === 'string') {
-				component = this.componentMap[component];
+				return this.componentMap[component];
 			}
+
+			return component;
+		},
+
+		/**
+		 * @param {{component: string | Vue, props?: any}} param0
+		 */
+		openRightModal({component, props}) {
 			this.rightModals.push({
 				shown: true,
-				component,
+				component: this.resolveComponent(component),
 				data: props || {},
 			});
 		},
@@ -112,7 +113,7 @@ export default {
 			this.rightModals.splice(index, 1);
 		},
 
-		setModalsFromRoutes(route) {
+		setModalsFromRoutes() {
 			this.closeRightModal();
 			const modals = this.getRouteModals();
 			const modalIds = this.getRouteModalIds();
@@ -120,7 +121,7 @@ export default {
 				const id = modalIds[index];
 				const props = id ? {fetch: true, data: {id}} : {};
 				this.openRightModal({
-					component: this.componentMap[modal],
+					component: modal,
 					props,
 				});
 			});
@@ -141,6 +142,7 @@ export default {
 
 	events: {
 		openRightModal({component, props}) {
+			component = this.resolveComponent(component);
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
 					modals: this.getRouteModals().concat(component.name).join(','),
@@ -161,6 +163,7 @@ export default {
 		},
 
 		closeOpenRightModal({component, props}) {
+			component = this.resolveComponent(component);
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
 					modals: component.name,
@@ -170,24 +173,18 @@ export default {
 			if (this.rightModals.length) {
 				this.closeRightModal();
 				this.$nextTick(() => {
-					this.openRightModal(opts);
+					this.openRightModal({component, props});
 				});
 			}
 			else {
-				this.openRightModal(opts);
+				this.openRightModal({component, props});
 			}
-		},
-	},
-
-	watch: {
-		$route(to) {
-			if (!to.query.modals) this.closeRightModal();
 		},
 	},
 };
 </script>
 
-<style>
+<style lang="postcss">
 html {
 	background-color: white;
 	font-size: 14px;
@@ -202,7 +199,11 @@ html {
 }
 
 body, button, input, select, textarea {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont,
+		"Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans",
+		"Droid Sans", "Helvetica Neue",
+		"Helvetica", "Arial", sans-serif;
 }
 
 body {

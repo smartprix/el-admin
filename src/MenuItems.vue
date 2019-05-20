@@ -1,6 +1,6 @@
 <script>
 export default {
-	name: 'ela-menu-items',
+	name: 'ElaMenuItems',
 	props: {
 		items: Array,
 		mode: {
@@ -8,7 +8,7 @@ export default {
 			default: 'vertical',
 		},
 	},
-	render(h) {
+	render() {
 		let index = 1;
 		const getSubMenu = (menu) => {
 			if (menu.items) {

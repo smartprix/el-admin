@@ -8,7 +8,7 @@
 import Vue from 'vue';
 
 export default {
-	name: 'modal-link',
+	name: 'ModalLink',
 
 	props: {
 		to: String,

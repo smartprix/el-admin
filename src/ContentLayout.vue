@@ -1,18 +1,18 @@
 <template>
-	<div class="ela-content-layout" :class="{'with-tabs': $slots.tabs}">
-		<div class="ela-content-layout-head" v-if="$slots.head">
+	<div :class="{'with-tabs': $slots.tabs}" class="ela-content-layout">
+		<div v-if="$slots.head" class="ela-content-layout-head">
 			<slot name="head"></slot>
 		</div>
-		<div class="ela-content-layout-tabs" v-if="$slots.tabs">
+		<div v-if="$slots.tabs" class="ela-content-layout-tabs">
 			<slot name="tabs"></slot>
 		</div>
-		<div class="ela-content-layout-content" :style="{padding: padding}" v-if="$slots.default">
-			<div class="ela-content-layout-filters" v-if="$slots.filters">
+		<div v-if="$slots.default" :style="{padding: padding}" class="ela-content-layout-content">
+			<div v-if="$slots.filters" class="ela-content-layout-filters">
 				<slot name="filters"></slot>
 			</div>
 			<slot></slot>
 		</div>
-		<div class="ela-content-layout-foot" v-if="$slots.foot">
+		<div v-if="$slots.foot" class="ela-content-layout-foot">
 			<slot name="foot"></slot>
 		</div>
 	</div>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-	name: 'ela-content-layout',
+	name: 'ElaContentLayout',
 	props: {
 		padding: {},
 	},

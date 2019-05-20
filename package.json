@@ -3,7 +3,7 @@
   "version": "0.4.2",
   "description": "Admin components using element (https://github.com/ElemeFE/element) tookit",
   "main": "src/index.js",
-  "repository": "smartprix/el-admin",
+  "types": "index.d.ts",
   "directories": {
     "test": "test"
   },
@@ -29,15 +29,31 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "element-ui": "^2.3.7",
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "eslint-config-smartprix": "^3.4.2",
-    "mocha": "^5.1.1",
-    "sm-webpack-config": "^0.18.2",
+    "mocha": "^6.1.4",
+    "sm-webpack-config": "^1.2.3",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vutils": "^0.14.7"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartprix/el-admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smartprix/el-admin/issues"
+  },
+  "homepage": "https://github.com/smartprix/el-admin#readme",
+  "keywords": [
+    "vue",
+    "components",
+    "vue-components",
+    "element-ui",
+    "ui-components",
+    "js"
+  ],
   "eslintConfig": {
     "extends": "smartprix",
     "rules": {}

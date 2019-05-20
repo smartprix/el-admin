@@ -12,7 +12,25 @@ import SchemaForm from './SchemaForm.vue';
 import ModalLink from './ModalLink.vue';
 
 var ElAdmin = {
-	install: function(Vue) {
+	install: function (Vue) {
+		Vue.prototype.$openRightModal = function (component, props) {
+			this.$bus.$emit('openRightModal', {
+				component,
+				props,
+			});
+		};
+
+		Vue.prototype.$closeRightModal = function () {
+			this.$bus.$emit('closeRightModal');
+		};
+
+		Vue.prototype.$closeOpenRightModal = function (component, props) {
+			this.$bus.$emit('closeOpenRightModal', {
+				component,
+				props,
+			});
+		};
+
 		Vue.component(AppLayout.name, AppLayout);
 		Vue.component(ContentLayout.name, ContentLayout);
 		Vue.component(DefaultInput.name, DefaultInput);
