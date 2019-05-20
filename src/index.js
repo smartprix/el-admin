@@ -10,6 +10,7 @@ import FilterItem from './FilterItem.vue';
 import Fieldset from './Fieldset.vue';
 import SchemaForm from './SchemaForm.vue';
 import ModalLink from './ModalLink.vue';
+import Markdown from './Markdown.vue';
 
 var ElAdmin = {
 	install: function(Vue) {
@@ -22,6 +23,7 @@ var ElAdmin = {
 		Vue.component(Fieldset.name, Fieldset);
 		Vue.component(SchemaForm.name, SchemaForm);
 		Vue.component(ModalLink.name, ModalLink);
+		Vue.component(Markdown.name, Markdown);
 	}
 };
 
