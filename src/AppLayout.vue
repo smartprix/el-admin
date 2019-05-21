@@ -30,7 +30,7 @@
 
 <script>
 import Vue from 'vue';
-import camelCase from 'lodash.camelcase';
+import camelCase from 'lodash/camelCase';
 import MenuItems from './MenuItems.vue';
 import RightModal from './RightModal.vue';
 
