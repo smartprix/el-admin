@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "inline-attachment": "^2.0.3",
+    "lodash": "^4.17.11",
     "simplemde": "^1.11.2"
   },
   "peerDependencies": {

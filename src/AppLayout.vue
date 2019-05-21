@@ -30,6 +30,7 @@
 
 <script>
 import Vue from 'vue';
+import camelCase from 'lodash/camelCase';
 import MenuItems from './MenuItems.vue';
 import RightModal from './RightModal.vue';
 
@@ -54,6 +55,17 @@ export default {
 		};
 	},
 
+	computed: {
+		pascalCaseMap() {
+			const pascalCaseMap = {};
+			Object.keys(this.componentMap).forEach((key) => {
+				const pascalCaseKey = this.pascalCase(key);
+				pascalCaseMap[pascalCaseKey] = this.componentMap[key];
+			});
+			return pascalCaseMap;
+		},
+	},
+
 	watch: {
 		$route(to) {
 			if (!to.query.modals) this.closeRightModal();
@@ -65,6 +77,11 @@ export default {
 	},
 
 	methods: {
+		pascalCase(str) {
+			const camel = camelCase(str);
+			return camel[0].toUpperCase() + camel.slice(1);
+		},
+
 		/**
 		 * @param {string | Vue} component If this is string it will try
 		 * to get component from componentMap
@@ -72,7 +89,7 @@ export default {
 		 */
 		resolveComponent(component) {
 			if (typeof component === 'string') {
-				return this.componentMap[component];
+				return this.pascalCaseMap[this.pascalCase(component)];
 			}
 
 			return component;
@@ -145,7 +162,7 @@ export default {
 			component = this.resolveComponent(component);
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
-					modals: this.getRouteModals().concat(component.name).join(','),
+					modals: this.getRouteModals().concat(this.pascalCase(component.name)).join(','),
 					modalIds: this.getRouteModalIds().concat(
 						(props && props.data && props.data.id) || ''
 					).join(','),
@@ -166,7 +183,7 @@ export default {
 			component = this.resolveComponent(component);
 			this.$router.push({
 				query: Object.assign({}, this.$route.query, {
-					modals: component.name,
+					modals: this.pascalCase(component.name),
 					modalData: (props && props.data && props.data.id) || '',
 				}),
 			});
