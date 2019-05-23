@@ -73,7 +73,9 @@ export default {
 	},
 
 	created() {
-		this.setModalsFromRoutes(this.$route);
+		this.$router.onReady(() => {
+			this.setModalsFromRoutes();
+		});
 	},
 
 	methods: {
