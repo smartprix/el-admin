@@ -32,7 +32,7 @@ export default {
 		},
 	},
 	methods: {
-		async beforeClose(){
+		async beforeClose() {
 			const handler = get(this, '$children.0.beforeClose');
 
 			if (!handler) {
@@ -40,9 +40,9 @@ export default {
 				return;
 			}
 
-			if(handler === 'warning'){
+			if (handler === 'warning') {
 				const confirm = await this.$confirm(
-					'Are you sure you want to close?', 
+					'Are you sure you want to close?',
 					'Close',
 					{
 						type: 'warning',
@@ -50,16 +50,19 @@ export default {
 						confirmButtonText: 'Close',
 					},
 				).catch(() => {});
-				if(confirm) this.currentValue = false;
+				if (confirm) this.currentValue = false;
 				return;
 			}
 
-			if(typeof handler !== 'function') return;
-			
+			if (typeof handler !== 'function') {
+				this.currentValue = false;
+				return;
+			}
+
 			const toClose = await handler();
-			if(toClose) this.currentValue = false;
+			if (toClose) this.currentValue = false;
 		},
-	}
+	},
 };
 </script>
 
