@@ -9,6 +9,9 @@ const config = {
 	entry: {
 		app: 'index.js',
 	},
+	devServer: {
+		clientLogLevel: 'info',
+	},
 };
 
 // The development server (the recommended option for development)
