@@ -16,6 +16,7 @@
 					:key="index"
 					:index="index"
 					v-model="modal.shown"
+					:warningBeforeClose="modal.data.warningBeforeClose"
 					@change="(!modal.shown) && removeRightModal(index)">
 					<component
 						:is="modal.component"

@@ -12,7 +12,7 @@
 		<div
 			:style="{zIndex: `${(index + 1) * 98}`}"
 			class="ela-right-modal-overlay"
-			@click.stop="currentValue = false">
+			@click.stop="handleOverlayClick()">
 		</div>
 	</div>
 </template>
@@ -24,11 +24,31 @@ export default {
 	props: {
 		hideOnClick: Boolean,
 		value: Boolean,
+		warningBeforeClose: Boolean,
 		index: {
 			type: Number,
 			default: 0,
 		},
 	},
+	methods: {
+		async handleOverlayClick(){
+			if(!this.warningBeforeClose) {
+				this.currentValue = false;
+				return;
+			}
+			const confirm = await this.$confirm(
+				'Are you sure you want to close?', 
+				'Close',
+				{
+					type: 'warning',
+					cancelButtonText: 'Cancel',
+					confirmButtonText: 'Close',
+				},
+			).catch(() => {});
+			if(!confirm) return;
+			this.currentValue = false;
+		},
+	}
 };
 </script>
 
