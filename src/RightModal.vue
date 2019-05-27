@@ -12,41 +12,52 @@
 		<div
 			:style="{zIndex: `${(index + 1) * 98}`}"
 			class="ela-right-modal-overlay"
-			@click.stop="handleOverlayClick()">
+			@click.stop="beforeClose()">
 		</div>
 	</div>
 </template>
 
 <script>
+import get from 'lodash/get';
+
 export default {
 	name: 'ElaRightModal',
 	vModel: true,
 	props: {
 		hideOnClick: Boolean,
 		value: Boolean,
-		warningBeforeClose: Boolean,
 		index: {
 			type: Number,
 			default: 0,
 		},
 	},
 	methods: {
-		async handleOverlayClick(){
-			if(!this.warningBeforeClose) {
+		async beforeClose(){
+			const handler = get(this, '$children.0.beforeClose');
+
+			if (!handler) {
 				this.currentValue = false;
 				return;
 			}
-			const confirm = await this.$confirm(
-				'Are you sure you want to close?', 
-				'Close',
-				{
-					type: 'warning',
-					cancelButtonText: 'Cancel',
-					confirmButtonText: 'Close',
-				},
-			).catch(() => {});
-			if(!confirm) return;
-			this.currentValue = false;
+
+			if(handler === 'warning'){
+				const confirm = await this.$confirm(
+					'Are you sure you want to close?', 
+					'Close',
+					{
+						type: 'warning',
+						cancelButtonText: 'Cancel',
+						confirmButtonText: 'Close',
+					},
+				).catch(() => {});
+				if(confirm) this.currentValue = false;
+				return;
+			}
+
+			if(typeof handler !== 'function') return;
+			
+			const toClose = await handler();
+			if(toClose) this.currentValue = false;
 		},
 	}
 };
