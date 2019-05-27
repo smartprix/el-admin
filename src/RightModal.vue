@@ -60,7 +60,7 @@ export default {
 			}
 
 			const toClose = await handler();
-			if (toClose) this.currentValue = false;
+			if (toClose !== false) this.currentValue = false;
 		},
 	},
 };
