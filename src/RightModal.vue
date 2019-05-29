@@ -35,11 +35,6 @@ export default {
 		async beforeClose() {
 			const handler = get(this, '$children.0.beforeClose');
 
-			if (!handler) {
-				this.currentValue = false;
-				return;
-			}
-
 			if (handler === 'warning') {
 				const confirm = await this.$confirm(
 					'Are you sure you want to close?',
@@ -54,13 +49,13 @@ export default {
 				return;
 			}
 
-			if (typeof handler !== 'function') {
-				this.currentValue = false;
+			if (typeof handler === 'function') {
+				const toClose = await handler();
+				if (toClose !== false) this.currentValue = false;
 				return;
 			}
 
-			const toClose = await handler();
-			if (toClose !== false) this.currentValue = false;
+			this.currentValue = false;
 		},
 	},
 };
