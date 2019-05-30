@@ -1,12 +1,12 @@
 <template>
 	<div class="ela-app-layout">
-		<nav class="ela-side-menu" @click="rightShown = false">
+		<nav class="ela-side-menu">
 			<div class="ela-side-menu-content">
 				<slot name="sidebar"></slot>
 			</div>
 		</nav>
 		<div class="ela-app-container">
-			<header @click="rightShown = false">
+			<header>
 				<slot name="header"></slot>
 			</header>
 			<div class="ela-app-container">
