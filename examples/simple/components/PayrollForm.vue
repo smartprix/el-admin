@@ -14,7 +14,7 @@
 			</markdown-editor>
 		</el-form-item>
 		<el-form-item>
-			<el-button type="primary" @click="savePayroll(payroll)">Save</el-button>
+			<el-button type="primary" @click="savePayroll(payroll)" native-type="submit">Save</el-button>
 			<el-button type="text" @click="onCancel">Cancel</el-button>
 		</el-form-item>
 	</el-form>

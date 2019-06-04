@@ -75,7 +75,7 @@
 			</el-col>
 		</el-row>
 		<el-form-item>
-			<el-button type="primary" @click="saveEmployee(employee)">Save</el-button>
+			<el-button type="primary" @click="saveEmployee(employee)" native-type="submit">Save</el-button>
 			<el-button type="text" @click="onCancel">Cancel</el-button>
 		</el-form-item>
 	</el-form>
@@ -97,6 +97,7 @@ export default {
 		return {
 			doj: '2017-01-04',
 			gender: 'male',
+			submit: this.saveEmployee,
 		};
 	},
 	methods: {
@@ -113,5 +114,10 @@ export default {
 			this.$emit('done');
 		},
 	},
+	events: {
+		saveplease() {
+			console.log('hang on, coming to save');
+		}
+	}
 };
 </script>
