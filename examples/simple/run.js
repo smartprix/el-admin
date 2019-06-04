@@ -3,13 +3,13 @@ const smWebpack = require('sm-webpack-config');
 const config = {
 	sourcePath: 'examples/simple',
 	sourceMap: true,
-	devServerPort: 3001,
-	appPort: 3000,
 	eslint: false,
 	entry: {
 		app: 'index.js',
 	},
 	devServer: {
+		port: 3010,
+		appPort: 3011,
 		clientLogLevel: 'info',
 	},
 };
