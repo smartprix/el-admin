@@ -31,7 +31,33 @@ export default {
 			default: 0,
 		},
 	},
+
+	mounted() {
+		document.querySelector('.ela-right-modal-wrapper').addEventListener('keyup', this.handleKeyUpEvent);
+		document.querySelector('.ela-right-modal-wrapper').addEventListener('keydown', this.handleKeyDownEvent);
+	},
+
 	methods: {
+
+		handleKeyUpEvent(e) {
+			// press CTRL + Enter to trigger click to submit button (native-type="submit" has to be added in el-button)
+			if (e.keyCode === 13 && (e.ctrlKey)) {
+				console.log(this);
+				const activePaneId = this.$el.querySelector('.el-tabs__item.is-active').getAttribute('aria-controls');
+				document.querySelector(`#${activePaneId} button[type=submit]`).click();
+			}
+
+			if (e.keyCode === 27) { // press ESC to close switcher menu
+				this.beforeClose();
+			}
+		},
+
+		handleKeyDownEvent(e) {
+			if (e.ctrlKey && e.keyCode === 13) {
+				e.preventDefault();
+			}
+		},
+
 		async beforeClose() {
 			const handler = get(this, '$children.0.beforeClose');
 
