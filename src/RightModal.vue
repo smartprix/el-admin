@@ -42,7 +42,6 @@ export default {
 		handleKeyUpEvent(e) {
 			// press CTRL + Enter to trigger click to submit button (native-type="submit" has to be added in el-button)
 			if (e.keyCode === 13 && (e.ctrlKey)) {
-				console.log(this);
 				const activePaneId = this.$el.querySelector('.el-tabs__item.is-active').getAttribute('aria-controls');
 				document.querySelector(`#${activePaneId} button[type=submit]`).click();
 			}
