@@ -2,11 +2,12 @@
 	<div v-show="currentValue" class="ela-right-modal-wrapper">
 		<div
 			:style="{
-				maxWidth: `${800 * (1 - (index * 0.016))}px`,
+				maxWidth: `${originalWidth}px`,
 				width: `${90 * (1 - (index * 0.016))}%`,
 				zIndex: `${(index + 1) * 99}`,
 			}"
 			class="ela-right-modal">
+			<div id="drag" @mousedown="dragStart"></div>
 			<slot></slot>
 		</div>
 		<div
@@ -23,6 +24,7 @@ import get from 'lodash/get';
 export default {
 	name: 'ElaRightModal',
 	vModel: true,
+
 	props: {
 		hideOnClick: Boolean,
 		value: Boolean,
@@ -31,6 +33,21 @@ export default {
 			default: 0,
 		},
 	},
+
+	data: {
+		dragging: false,
+		originalWidth: null,
+		startWidth: 0,
+		pageX: 0,
+		modalEl: '',
+	},
+
+	created() {
+		this.originalWidth = 800 * (1 - (this.index * 0.016));
+		document.addEventListener('mousemove', this.drag);
+		document.addEventListener('mouseup', this.dragStop);
+	},
+
 	methods: {
 		async beforeClose() {
 			const handler = get(this, '$children.0.beforeClose');
@@ -56,6 +73,26 @@ export default {
 			}
 
 			this.currentValue = false;
+		},
+
+		dragStart(e) {
+			this.dragging = true;
+			this.modalEl = e.target.parentElement;
+			this.startWidth = parseInt(e.target.parentElement.style.maxWidth);
+			this.pageX = e.pageX;
+		},
+
+		drag(e) {
+			if (!this.dragging) return;
+
+			const dx = e.pageX - this.pageX;
+			if (this.startWidth - dx < this.originalWidth) return;
+
+			this.modalEl.style.maxWidth = (this.startWidth - dx) + 'px';
+		},
+
+		dragStop(e) {
+			this.dragging = false;
 		},
 	},
 };
@@ -88,5 +125,19 @@ export default {
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+
+.el-form-item__label, .el-tabs__item, .ela-right-modal h3 {
+	user-select: none;
+}
+
+#drag {
+	height: 100%;
+	width: 8px;
+	position: absolute;
+	background: transparent;
+	z-index: 100;
+	left: -4px;
+	cursor: col-resize;
 }
 </style>
