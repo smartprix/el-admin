@@ -80,6 +80,7 @@ export default {
 			this.modalEl = e.target.parentElement;
 			this.startWidth = parseInt(e.target.parentElement.style.maxWidth);
 			this.pageX = e.pageX;
+			document.querySelector('.ela-right-modal').style.userSelect = 'none';
 		},
 
 		drag(e) {
@@ -93,6 +94,7 @@ export default {
 
 		dragStop(e) {
 			this.dragging = false;
+			document.querySelector('.ela-right-modal').style.userSelect = 'auto';
 		},
 	},
 };
@@ -125,10 +127,6 @@ export default {
 	position: absolute;
 	right: 0;
 	top: 0;
-}
-
-.el-form-item__label, .el-tabs__item, .ela-right-modal h3 {
-	user-select: none;
 }
 
 #drag {
