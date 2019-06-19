@@ -97,6 +97,11 @@ export default {
 			document.querySelector('.ela-right-modal').style.userSelect = 'auto';
 		},
 	},
+
+	beforeDestroy() {
+		document.removeEventListener('mousemove', this.drag);
+		document.removeEventListener('mouseup', this.dragStop);
+	}
 };
 </script>
 
