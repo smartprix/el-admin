@@ -7,7 +7,7 @@
 				zIndex: `${(index + 1) * 99}`,
 			}"
 			class="ela-right-modal">
-			<div id="drag" @mousedown="dragStart"></div>
+			<div class="right-modal-drag" @mousedown="dragStart"></div>
 			<slot></slot>
 		</div>
 		<div
@@ -129,7 +129,7 @@ export default {
 	top: 0;
 }
 
-#drag {
+.right-modal-drag {
 	height: 100%;
 	width: 8px;
 	position: absolute;
