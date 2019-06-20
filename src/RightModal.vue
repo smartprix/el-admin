@@ -35,11 +35,13 @@ export default {
 		},
 	},
 
-	data: {
-		dragging: false,
-		startWidth: null,
-		pageX: 0,
-		modalEl: '',
+	data() {
+		return {
+			dragging: false,
+			startWidth: null,
+			pageX: 0,
+			modalEl: '',
+		};
 	},
 
 	created() {
