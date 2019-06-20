@@ -2,7 +2,8 @@
 	<div v-show="currentValue" class="ela-right-modal-wrapper">
 		<div
 			:style="{
-				maxWidth: `${originalWidth}px`,
+				maxWidth: `${800 * (1 - (index * 0.016))}px`,
+				minWidth: `${800 * (1 - (index * 0.016))}px`,
 				width: `${90 * (1 - (index * 0.016))}%`,
 				zIndex: `${(index + 1) * 99}`,
 			}"
@@ -36,14 +37,12 @@ export default {
 
 	data: {
 		dragging: false,
-		originalWidth: null,
-		startWidth: 0,
+		startWidth: null,
 		pageX: 0,
 		modalEl: '',
 	},
 
 	created() {
-		this.originalWidth = 800 * (1 - (this.index * 0.016));
 		document.addEventListener('mousemove', this.drag);
 		document.addEventListener('mouseup', this.dragStop);
 	},
@@ -87,7 +86,7 @@ export default {
 			if (!this.dragging) return;
 
 			const dx = e.pageX - this.pageX;
-			if (this.startWidth - dx < this.originalWidth) return;
+			if (this.startWidth - dx < parseInt(this.modalEl.style.minWidth)) return;
 
 			this.modalEl.style.maxWidth = (this.startWidth - dx) + 'px';
 		},
