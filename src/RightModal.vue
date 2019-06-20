@@ -7,7 +7,9 @@
 				width: `${90 * (1 - (index * 0.016))}%`,
 				zIndex: `${(index + 1) * 99}`,
 			}"
-			class="ela-right-modal">
+			class="ela-right-modal"
+			ref="rightModal"
+		>
 			<div class="right-modal-drag" @mousedown="dragStart"></div>
 			<slot></slot>
 		</div>
@@ -40,7 +42,6 @@ export default {
 			dragging: false,
 			startWidth: null,
 			pageX: 0,
-			modalEl: '',
 		};
 	},
 
@@ -78,24 +79,23 @@ export default {
 
 		dragStart(e) {
 			this.dragging = true;
-			this.modalEl = e.target.parentElement;
-			this.startWidth = parseInt(e.target.parentElement.style.maxWidth);
+			this.startWidth = parseInt(this.$refs.rightModal.style.maxWidth);
 			this.pageX = e.pageX;
-			document.querySelector('.ela-right-modal').style.userSelect = 'none';
+			this.$refs.rightModal.style.userSelect = 'none';
 		},
 
 		drag(e) {
 			if (!this.dragging) return;
 
 			const dx = e.pageX - this.pageX;
-			if (this.startWidth - dx < parseInt(this.modalEl.style.minWidth)) return;
+			if (this.startWidth - dx < parseInt(this.$refs.rightModal.style.minWidth)) return;
 
-			this.modalEl.style.maxWidth = (this.startWidth - dx) + 'px';
+			this.$refs.rightModal.style.maxWidth = (this.startWidth - dx) + 'px';
 		},
 
 		dragStop(e) {
 			this.dragging = false;
-			document.querySelector('.ela-right-modal').style.userSelect = 'auto';
+			this.$refs.rightModal.style.userSelect = 'auto';
 		},
 	},
 
