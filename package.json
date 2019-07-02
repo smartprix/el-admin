@@ -1,6 +1,6 @@
 {
   "name": "el-admin",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Admin components using element (https://github.com/ElemeFE/element) tookit",
   "main": "src/index.js",
   "types": "index.d.ts",
