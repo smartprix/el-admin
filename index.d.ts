@@ -50,6 +50,6 @@ export const RightModal: Vue;
  * - $closeRightModal
  * - $closeOpenRightModal
  */
-declare const elAdmin: PluginObject<Vue>;
+declare const elAdmin: PluginObject<undefined>;
 
 export default elAdmin;
