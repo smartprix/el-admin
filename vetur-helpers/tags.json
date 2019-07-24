@@ -1,0 +1,72 @@
+{
+	"ela-app-layout": {
+		"attributes": [
+			"componentMap"
+		],
+		"description": "Base App component. Pass a component map in props(required).\n3 slots are available:\n- default, which is the main content\n- 'sidebar'\n- 'header'"
+	},
+	"ela-content-layout": {
+		"attributes": [
+			"padding"
+		],
+		"description": "Use as main content slot in App Layout.\n5 slots are available:\n- default\n- 'head'\n- 'tabs'\n- filters\n- 'foot'"
+	},
+	"ela-default-input": {
+		"attributes": [
+			"type",
+			"placeholder",
+			"disabled",
+			"size",
+			"icon",
+			"name",
+			"form",
+			"readonly",
+			"default"
+		],
+		"description": "Wrapper for el-input with default option"
+	},
+	"ela-menu-items": {
+		"attributes": [
+			"items",
+			"mode"
+		],
+		"description": "Construct a nested el-menu with items array"
+	},
+	"ela-right-modal": {
+		"attributes": [
+			"hideOnClick",
+			"value",
+			"index"
+		],
+		"description": "Right Modal. Has a default slot. It's size is changable by dragging"
+	},
+	"ela-filter-item": {
+		"attributes": [
+			"label",
+			"span",
+			"float"
+		],
+		"description": "For use in the 'filters' scope of content layout"
+	},
+	"ela-fieldset": {
+		"attributes": [
+			"legend"
+		],
+		"description": "Make a fieldset with optional legend"
+	},
+	"ela-schema-form": {
+		"attributes": [
+			"schema",
+			"value"
+		],
+		"description": "Make a dynamic form from jsonSchema, only simple array type schema object supported"
+	},
+	"modal-link": {
+		"attributes": [
+			"to",
+			"data",
+			"append"
+		],
+		"description": "Create a router link to any right modal. Has a default slot"
+	}
+}

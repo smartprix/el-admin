@@ -1,0 +1,105 @@
+{
+	"ela-app-layout/componentMap": {
+		"type": "object",
+		"required": true,
+		"description": "required, Map of component names and Vue Component or can be a function returning dynamic import of component"
+	},
+	"ela-content-layout/padding": {
+		"type": "string",
+		"default": "20px",
+		"description": "Padding for main content and 'filters'"
+	},
+	"ela-default-input/type": {
+		"type": "string",
+		"description": "Same as the 'type' attribute of native input, except that it can be 'textarea'"
+	},
+	"ela-default-input/placeholder": {
+		"type": "string",
+		"description": "Placeholder text for input"
+	},
+	"ela-default-input/disabled": {
+		"type": "boolean",
+		"default": false
+	},
+	"ela-default-input/size": {
+		"type": "string",
+		"options": ["medium", "small", "mini"],
+		"description": "size of Input, works when type is not 'textarea'"
+	},
+	"ela-default-input/icon": {
+		"type": "string",
+		"description": "icon name"
+	},
+	"ela-default-input/name": {
+		"type": "string",
+		"description": "native 'name' attribute"
+	},
+	"ela-default-input/form": {
+		"type": "string",
+		"description": "same as 'form' in native input"
+	},
+	"ela-default-input/readonly": {
+		"type": "boolean",
+		"default": false
+	},
+	"ela-default-input/default": {
+		"description": "the default value"
+	},
+	"ela-menu-items/items": {
+		"type": "array",
+		"description": "Each item can contain: 'text'(required), 'icon', 'link', and nested 'items' array for submenu"
+	},
+	"ela-menu-items/mode": {
+		"type": "string",
+		"options": ["horizontal", "vertical"],
+		"description": "menu display mode"
+	},
+	"ela-right-modal/hideOnClick": {
+		"type": "boolean"
+	},
+	"ela-right-modal/value": {
+		"type": "boolean"
+	},
+	"ela-right-modal/index": {
+		"type": "number",
+		"default": 0
+	},
+	"ela-filter-item/label": {
+		"type": "string",
+		"description": "Label for filter item"
+	},
+	"ela-filter-item/span": {
+		"type": "number",
+		"default": 6,
+		"description": "Span for the 'el-col'"
+	},
+	"ela-filter-item/float": {
+		"type": "string",
+		"options": ["right", "left"],
+		"description": "float filter left or right"
+	},
+	"ela-fieldset/legend": {
+		"type": "string",
+		"description": "Legend for the fieldset"
+	},
+	"ela-schema-form/schema": {
+		"type": "object",
+		"description": "simple array type schema object, each form item can have a 'title' key"
+	},
+	"ela-schema-form/value": {
+		"type": "array"
+	},
+	"modal-link/to": {
+		"type": "string",
+		"description": "link to which modal"
+	},
+	"modal-link/data": {
+		"type": "object",
+		"description": "data to forward to modal"
+	},
+	"modal-link/append": {
+		"type": "boolean",
+		"default": true,
+		"description": "append over existing right modals or clear them"
+	}
+}

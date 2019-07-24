@@ -4,6 +4,10 @@
   "description": "Admin components using element (https://github.com/ElemeFE/element) tookit",
   "main": "src/index.js",
   "types": "index.d.ts",
+  "vetur": {
+    "tags": "vetur-helpers/tags.json",
+    "attributes": "vetur-helpers/attributes.json"
+  },
   "directories": {
     "test": "test"
   },
