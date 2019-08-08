@@ -1,4 +1,5 @@
 # el-admin
+
 Admin components using element (https://github.com/ElemeFE/element) tookit
 
 ## How To Use
@@ -11,6 +12,10 @@ Vue.use(ElAdmin);
 ```
 
 Documentation is a WIP, meanwhile you can take a look at the example folder to find out some examples.
+
+### Vetur support
+
+Add [vetur extension](https://github.com/vuejs/vetur), it will automatically pick up the tag & attribute definitions
 
 ## How To Run Examples
 
