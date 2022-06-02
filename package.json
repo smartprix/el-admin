@@ -24,7 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "inline-attachment": "^2.0.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "simplemde": "^1.11.2"
   },
   "peerDependencies": {
@@ -32,16 +32,16 @@
     "vutils": ">= 0.6.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.3.6",
     "element-ui": "^2.3.7",
     "eslint": "^5.16.0",
     "eslint-config-smartprix": "^3.4.2",
     "mocha": "^6.1.4",
-    "sm-webpack-config": "^1.2.3",
+    "sm-webpack-config": "^1.4.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vutils": "^0.14.7"
+    "vutils": "^0.15.0"
   },
   "repository": {
     "type": "git",
