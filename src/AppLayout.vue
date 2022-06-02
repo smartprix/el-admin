@@ -342,4 +342,10 @@ code, pre {
 		color: black;
 	}
 }
+
+@media (max-device-width: 900px) {
+	.ela-side-menu {
+		flex: 0 0 80px;
+	}
+}
 </style>

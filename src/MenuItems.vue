@@ -8,6 +8,12 @@ export default {
 			default: 'vertical',
 		},
 	},
+	data() {
+		const screenWidth = (typeof window === 'undefined' ? 1000 : window.screen.availWidth) || 1000;
+		return {
+			isMobile: screenWidth < 900,
+		};
+	},
 	render() {
 		let index = 1;
 		const getSubMenu = (menu) => {
@@ -29,7 +35,7 @@ export default {
 		};
 
 		return (
-			<el-menu mode={this.mode} router>
+			<el-menu mode={this.mode} router collapse={this.isMobile}>
 				{this.items.map(getSubMenu)}
 			</el-menu>
 		);

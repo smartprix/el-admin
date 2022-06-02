@@ -2,8 +2,8 @@
 	<div v-show="currentValue" class="ela-right-modal-wrapper">
 		<div
 			:style="{
-				maxWidth: `${800 * (1 - (index * 0.016))}px`,
-				minWidth: `${800 * (1 - (index * 0.016))}px`,
+				maxWidth: `${1040 * (1 - (index * 0.016))}px`,
+				minWidth: `${windowWidth * (1 - (index * 0.016))}px`,
 				width: `${90 * (1 - (index * 0.016))}%`,
 				zIndex: `${(index + 1) * 99}`,
 			}"
@@ -38,10 +38,13 @@ export default {
 	},
 
 	data() {
+		const windowWidth = (typeof window === 'undefined' ? 1000: window.innerWidth) || 1000;
+		const screenWidth = (typeof window === 'undefined' ? 1000 : window.screen.availWidth) || 1000;
 		return {
 			dragging: false,
 			startWidth: null,
 			pageX: 0,
+			minWidth: Math.min(900, screenWidth < 900 ? (windowWidth - 90) : (windowWidth - 250)),
 		};
 	},
 
