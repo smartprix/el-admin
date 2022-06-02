@@ -1,14 +1,14 @@
 <template>
 	<div v-show="currentValue" class="ela-right-modal-wrapper">
 		<div
+			ref="rightModal"
 			:style="{
 				maxWidth: `${1040 * (1 - (index * 0.016))}px`,
-				minWidth: `${windowWidth * (1 - (index * 0.016))}px`,
+				minWidth: `${minWidth * (1 - (index * 0.016))}px`,
 				width: `${90 * (1 - (index * 0.016))}%`,
 				zIndex: `${(index + 1) * 99}`,
 			}"
 			class="ela-right-modal"
-			ref="rightModal"
 		>
 			<div class="right-modal-drag" @mousedown="dragStart"></div>
 			<slot></slot>
@@ -38,7 +38,7 @@ export default {
 	},
 
 	data() {
-		const windowWidth = (typeof window === 'undefined' ? 1000: window.innerWidth) || 1000;
+		const windowWidth = (typeof window === 'undefined' ? 1000 : window.innerWidth) || 1000;
 		const screenWidth = (typeof window === 'undefined' ? 1000 : window.screen.availWidth) || 1000;
 		return {
 			dragging: false,
