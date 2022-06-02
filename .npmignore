@@ -9,3 +9,4 @@ examples
 build.js
 package-lock.json
 yarn.lock
+.lh

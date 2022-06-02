@@ -3,3 +3,4 @@ coverage
 .vscode
 .idea
 package-lock.json
+.lh
