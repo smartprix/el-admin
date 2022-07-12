@@ -54,9 +54,9 @@ function _getModalsRouteParam(component, props) {
 		if (routeProps.data.id) {
 			routeProps._id = routeProps.data.id;
 		}
-		delete routeProps.data;
 		delete routeProps.fetch;
 	}
+	delete routeProps.data;
 	return [pascalCase(componentName), routeProps];
 }
 

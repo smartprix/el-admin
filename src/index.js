@@ -10,6 +10,7 @@ import FilterItem from './FilterItem.vue';
 import Fieldset from './Fieldset.vue';
 import SchemaForm from './SchemaForm.vue';
 import ModalLink from './ModalLink.vue';
+import {getRouteModals} from './utils';
 
 var ElAdmin = {
 	install: function (Vue) {
@@ -50,4 +51,5 @@ export {
 	DefaultInput,
 	MenuItems,
 	RightModal,
+	getRouteModals,
 };

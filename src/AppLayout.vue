@@ -131,8 +131,8 @@ export default {
 		},
 
 		setModalsFromRoutes() {
-			this.closeRightModal();
 			const modals = getRouteModals(this.$router);
+			this.closeRightModal();
 			modals.forEach((modal) => {
 				this.openRightModal({
 					component: modal.component,
