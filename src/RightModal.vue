@@ -53,6 +53,11 @@ export default {
 		document.addEventListener('mouseup', this.dragStop);
 	},
 
+	beforeDestroy() {
+		document.removeEventListener('mousemove', this.drag);
+		document.removeEventListener('mouseup', this.dragStop);
+	},
+
 	methods: {
 		async beforeClose() {
 			const handler = get(this, '$children.0.beforeClose');
@@ -82,7 +87,7 @@ export default {
 
 		dragStart(e) {
 			this.dragging = true;
-			this.startWidth = parseInt(this.$refs.rightModal.style.maxWidth);
+			this.startWidth = parseInt(this.$refs.rightModal.style.maxWidth, 10);
 			this.pageX = e.pageX;
 			this.$refs.rightModal.style.userSelect = 'none';
 		},
@@ -91,21 +96,16 @@ export default {
 			if (!this.dragging) return;
 
 			const dx = e.pageX - this.pageX;
-			if (this.startWidth - dx < parseInt(this.$refs.rightModal.style.minWidth)) return;
+			if (this.startWidth - dx < parseInt(this.$refs.rightModal.style.minWidth, 10)) return;
 
 			this.$refs.rightModal.style.maxWidth = (this.startWidth - dx) + 'px';
 		},
 
-		dragStop(e) {
+		dragStop() {
 			this.dragging = false;
 			this.$refs.rightModal.style.userSelect = 'auto';
 		},
 	},
-
-	beforeDestroy() {
-		document.removeEventListener('mousemove', this.drag);
-		document.removeEventListener('mouseup', this.dragStop);
-	}
 };
 </script>
 

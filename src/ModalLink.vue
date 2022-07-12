@@ -6,6 +6,7 @@
 
 <script>
 import Vue from 'vue';
+import {getModalsRouteParam} from './utils';
 
 export default {
 	name: 'ModalLink',
@@ -13,6 +14,7 @@ export default {
 	props: {
 		to: String,
 		data: Object,
+		props: Object,
 		append: {
 			type: Boolean,
 			default: true,
@@ -27,28 +29,30 @@ export default {
 
 	methods: {
 		getLink() {
-			const {to, data, append} = this;
-
-			if (!append) {
-				return {
-					modals: to,
-					modalIds: (data && data.data && data.data.id) || '',
-				};
+			const routeProps = {...this.props};
+			if (this.data) {
+				routeProps.data = this.data;
 			}
-
-			const modals = (this.$route.query.modals || '').split(',');
-			const modalIds = (this.$route.query.modalIds || '').split(',');
 			return {
-				modals: modals.concat(to).join(','),
-				modalIds: modalIds.concat((data && data.data && data.data.id) || '').join(','),
+				modals: getModalsRouteParam({
+					component: this.to,
+					props: routeProps,
+				}, {
+					router: this.$router,
+					append: this.append,
+				}),
 			};
 		},
 
 		handleClick(e) {
 			if (e.ctrlKey) return;
+			const routeProps = {...this.props};
+			if (this.data) {
+				routeProps.data = this.data;
+			}
 			Vue.bus.$emit('openRightModal', {
 				component: this.to,
-				props: this.data,
+				props: routeProps,
 			});
 		},
 	},

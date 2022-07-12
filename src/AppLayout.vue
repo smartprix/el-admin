@@ -19,7 +19,7 @@
 					@change="(!modal.shown) && removeRightModal(index)">
 					<component
 						:is="modal.component"
-						v-bind="modal.data"
+						v-bind="modal.props"
 						@done="modal.shown = false"
 					></component>
 				</right-modal>
@@ -29,10 +29,16 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import camelCase from 'lodash/camelCase';
 import MenuItems from './MenuItems.vue';
 import RightModal from './RightModal.vue';
+import {
+	pascalCase,
+	addRouteModal,
+	removeRouteModal,
+	removeRouteModals,
+	getRouteModals,
+} from './utils';
+
 
 export default {
 	name: 'ElaAppLayout',
@@ -59,7 +65,7 @@ export default {
 		pascalCaseMap() {
 			const pascalCaseMap = {};
 			Object.keys(this.componentMap).forEach((key) => {
-				const pascalCaseKey = this.pascalCase(key);
+				const pascalCaseKey = pascalCase(key);
 				pascalCaseMap[pascalCaseKey] = this.componentMap[key];
 			});
 			return pascalCaseMap;
@@ -68,7 +74,11 @@ export default {
 
 	watch: {
 		$route(to) {
-			if (!to.query.modals) this.closeRightModal();
+			if (!to.query.modals) {
+				if (this.rightModals.length) {
+					this.closeRightModal();
+				}
+			}
 		},
 	},
 
@@ -79,11 +89,6 @@ export default {
 	},
 
 	methods: {
-		pascalCase(str) {
-			const camel = camelCase(str);
-			return camel[0].toUpperCase() + camel.slice(1);
-		},
-
 		/**
 		 * @param {string | Vue} component If this is string it will try
 		 * to get component from componentMap
@@ -91,7 +96,7 @@ export default {
 		 */
 		resolveComponent(component) {
 			if (typeof component === 'string') {
-				return this.pascalCaseMap[this.pascalCase(component)];
+				return this.pascalCaseMap[pascalCase(component)];
 			}
 
 			return component;
@@ -101,94 +106,54 @@ export default {
 		 * @param {{component: string | Vue, props?: any}} param0
 		 */
 		openRightModal({component, props}) {
+			component = this.resolveComponent(component);
+			if (!component) return;
+			addRouteModal(this.$router, component, props);
 			this.rightModals.push({
 				shown: true,
-				component: this.resolveComponent(component),
-				data: props || {},
+				component,
+				props: props || {},
 			});
 		},
 
 		closeRightModal() {
+			removeRouteModals(this.$router);
 			this.rightModals = [];
 		},
 
 		removeRightModal(index) {
 			if (this.rightModals.length === 1) {
-				Vue.bus.$emit('closeRightModal');
+				this.closeRightModal();
 				return;
 			}
-
-			const modals = this.getRouteModals();
-			modals.splice(index, 1);
-			const modalIds = this.getRouteModalIds();
-			modalIds.splice(index, 1);
-			this.$router.push({
-				query: Object.assign({}, this.$route.query, {
-					modals: modals.join(','),
-					modalIds: modalIds.join(','),
-				}),
-			});
-
+			removeRouteModal(this.$router, index);
 			this.rightModals.splice(index, 1);
 		},
 
 		setModalsFromRoutes() {
 			this.closeRightModal();
-			const modals = this.getRouteModals();
-			const modalIds = this.getRouteModalIds();
-			modals.forEach((modal, index) => {
-				const id = modalIds[index];
-				const props = id ? {fetch: true, data: {id}} : {};
+			const modals = getRouteModals(this.$router);
+			modals.forEach((modal) => {
 				this.openRightModal({
-					component: modal,
-					props,
+					component: modal.component,
+					props: modal.props,
 				});
 			});
-		},
-
-		getRouteModals() {
-			const modals = this.$route.query.modals;
-			if (!modals) return [];
-			return modals.split(',');
-		},
-
-		getRouteModalIds() {
-			const modalIds = this.$route.query.modalIds;
-			if (!modalIds) return [];
-			return modalIds.split(',');
 		},
 	},
 
 	events: {
 		openRightModal({component, props}) {
 			component = this.resolveComponent(component);
-			this.$router.push({
-				query: Object.assign({}, this.$route.query, {
-					modals: this.getRouteModals().concat(this.pascalCase(component.name)).join(','),
-					modalIds: this.getRouteModalIds().concat(
-						(props && props.data && props.data.id) || ''
-					).join(','),
-				}),
-			});
 			this.openRightModal({component, props});
 		},
 
 		closeRightModal() {
-			const query = Object.assign({}, this.$route.query);
-			delete query.modals;
-			delete query.modalIds;
-			this.$router.push({query});
 			this.closeRightModal();
 		},
 
 		closeOpenRightModal({component, props}) {
 			component = this.resolveComponent(component);
-			this.$router.push({
-				query: Object.assign({}, this.$route.query, {
-					modals: this.pascalCase(component.name),
-					modalData: (props && props.data && props.data.id) || '',
-				}),
-			});
 			if (this.rightModals.length) {
 				this.closeRightModal();
 				this.$nextTick(() => {
