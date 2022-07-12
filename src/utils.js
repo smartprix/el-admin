@@ -10,8 +10,19 @@ function parse(str) {
 	return JSURL.parse(str, {deURI: true});
 }
 
-function getModals(router) {
+function getQueryModals(router) {
 	return router.currentRoute.query.modals;
+}
+
+function setQueryModals(router, modals) {
+	const query = router.currentRoute.query;
+	const newQuery = {...query, modals};
+	if (!modals) {
+		delete newQuery.modals;
+	}
+	router.push({
+		query: newQuery,
+	});
 }
 
 export function pascalCase(str) {
@@ -20,7 +31,7 @@ export function pascalCase(str) {
 }
 
 export function getRouteModals(router) {
-	const modals = parse(getModals(router)) || [];
+	const modals = parse(getQueryModals(router)) || [];
 	return modals.map((obj) => {
 		const props = obj[1] || {};
 		if (props._id) {
@@ -52,7 +63,7 @@ function _getModalsRouteParam(component, props) {
 export function getModalsRouteParam(modals, {router, append} = {}) {
 	let routeModals = [];
 	if (append && router) {
-		routeModals = parse(getModals(router)) || [];
+		routeModals = parse(getQueryModals(router)) || [];
 	}
 	if (!modals) {
 		if (!routeModals.length) return '';
@@ -67,25 +78,19 @@ export function getModalsRouteParam(modals, {router, append} = {}) {
 }
 
 export function addRouteModal(router, component, props) {
-	const routeModals = parse(getModals(router)) || [];
+	const routeModals = parse(getQueryModals(router)) || [];
 	routeModals.push(_getModalsRouteParam(component, props));
-	router.push({
-		query: stringify(routeModals),
-	});
+	setQueryModals(router, stringify(routeModals));
 }
 
 export function removeRouteModal(router, index) {
-	const routeModals = parse(getModals(router)) || [];
+	const routeModals = parse(getQueryModals(router)) || [];
 	routeModals.splice(index, 1);
-	router.push({
-		query: stringify(routeModals),
-	});
+	setQueryModals(router, stringify(routeModals));
 }
 
 export function removeRouteModals(router) {
-	if (getModals(router) != null) {
-		const query = Object.assign({}, router.currentRoute.query);
-		delete query.modals;
-		router.push({query});
+	if (getQueryModals(router) != null) {
+		setQueryModals(router, null);
 	}
 }
